@@ -86,7 +86,8 @@ In order for listeners to do their thing, they must first be "attached" to an ev
 // Setup event dispatcher and attach listeners
 auto dispatcher = new EventDispatcher();
 dispatcher.attachListener(new Listener1());
-dispatcher.attachListener(new Listener2());```
+dispatcher.attachListener(new Listener2());
+```
 
 
 ## Adding events an event lists.
