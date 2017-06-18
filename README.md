@@ -7,7 +7,7 @@ This library implements a variant of the pub/sub pattern, using events, an event
 Your app can raise events.  Events can store any metadata you like in structs.
 An event must extend AbstractEvent and have a metadata struct type defined.
 
-Here's an example of a metadata struct.  This struct can literally hold information you need.
+Here's an example of a metadata struct.  This struct can hold any number of properties of any type.  You could for example hold an entity or database tuple here.
 
 ```
 struct UserCreatedMeta
@@ -43,8 +43,8 @@ Events will be processed or handled by "listeners".
 
 ## Event Listeners
 
-Event Listeners declare what kind of events they are interested in and are then
-responsible for handling each event type via the "handleEvent" method.
+Event Listeners must declare the types of events they are interested in.  Moreover, they
+and responsible for "handling" each event type via the "handleEvent" method.
 
 A listener can be any D class so long as it implements the EventListenerInterface.
 
@@ -76,13 +76,14 @@ class Listener2 : EventListenerInterface
 }
 ```
 
-Note that when handling events, you can create new events and pass those back to the dispatcher.
-See source/demo.d for an example of a handler that creates new events.
+Note that whilst you are handling events, you can also create new events and pass those back to the dispatcher.
+In this way, you can have events that create events that create events and so on.  There is no limit to the depth
+of event creation.  See source/demo.d for an example of a handler that creates new events.
 
-To work, listeners must be "attached" to an event dispatcher, e.g.
+In order for listeners to do their thing, they must first be "attached" to an event dispatcher, e.g.
 
-// Setup event dispatcher and attach listeners
 ```
+// Setup event dispatcher and attach listeners
 auto dispatcher = new EventDispatcher();
 dispatcher.attachListener(new Listener1());
 dispatcher.attachListener(new Listener2());```
@@ -102,7 +103,7 @@ Note that we pass in the event instance and also the type of the event.
 
 ## Dispatching the events.
 
-In order for the event listeners to receive the events, we must dispatch them.  E.g.
+In order for the event listeners to receive the events, we must dispatch via them using the eventList.  E.g.
 
 ```
 eventList.dispatch(dispatcher);
