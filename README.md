@@ -9,7 +9,8 @@ An event must extend AbstractEvent and have a metadata struct type defined.
 
 Here's an example of a metadata struct.  This struct can literally hold information you need.
 
-```struct UserCreatedMeta
+```
+struct UserCreatedMeta
 {
     uint userId;
     string firstName;
@@ -19,7 +20,8 @@ Here's an example of a metadata struct.  This struct can literally hold informat
 
 And here's an example of an event that contains that struct.
 
-```class UserCreatedEvent : AbstractEvent!UserCreatedMeta
+```
+class UserCreatedEvent : AbstractEvent!UserCreatedMeta
 {
     this(uint userId, string firstName, string lastName)
     in {
@@ -48,7 +50,8 @@ A listener can be any D class so long as it implements the EventListenerInterfac
 
 Here's an example of an event listener.
 
-```class Listener2 : EventListenerInterface
+```
+class Listener2 : EventListenerInterface
 {
     // Listener2 is interested in the UserCreatedEvent and UserUpdatedEvent events.
     public TypeInfo[] getInterestedEvents() {
@@ -79,7 +82,8 @@ See source/demo.d for an example of a handler that creates new events.
 To work, listeners must be "attached" to an event dispatcher, e.g.
 
 // Setup event dispatcher and attach listeners
-```auto dispatcher = new EventDispatcher();
+```
+auto dispatcher = new EventDispatcher();
 dispatcher.attachListener(new Listener1());
 dispatcher.attachListener(new Listener2());```
 
@@ -88,7 +92,8 @@ dispatcher.attachListener(new Listener2());```
 
 Once raised, events must be added an an event list.  E.g.
 
-```auto eventList = new EventList();
+```
+auto eventList = new EventList();
 eventList.append(eventAppStarted, typeid(AppStartedEvent));
 eventList.append(eventUserCreated, typeid(UserCreatedEvent));
 ```
@@ -99,7 +104,8 @@ Note that we pass in the event instance and also the type of the event.
 
 In order for the event listeners to receive the events, we must dispatch them.  E.g.
 
-```eventList.dispatch(dispatcher);
+```
+eventList.dispatch(dispatcher);
 ```
 
 For a full demonstration, see source/demo.d
