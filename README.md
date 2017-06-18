@@ -14,7 +14,8 @@ Here's an example of a metadata struct.  This struct can literally hold informat
     uint userId;
     string firstName;
     string lastName;
-}```
+}
+```
 
 And here's an example of an event that contains that struct.
 
@@ -33,7 +34,8 @@ And here's an example of an event that contains that struct.
 
         super(meta);
     }
-}```
+}
+```
 
 Events will be processed or handled by "listeners".
 
@@ -68,7 +70,8 @@ Here's an example of an event listener.
 
         return eventList;
     }
-}```
+}
+```
 
 Note that when handling events, you can create new events and pass those back to the dispatcher.
 See source/demo.d for an example of a handler that creates new events.
@@ -87,7 +90,8 @@ Once raised, events must be added an an event list.  E.g.
 
 ```auto eventList = new EventList();
 eventList.append(eventAppStarted, typeid(AppStartedEvent));
-eventList.append(eventUserCreated, typeid(UserCreatedEvent));```
+eventList.append(eventUserCreated, typeid(UserCreatedEvent));
+```
 
 Note that we pass in the event instance and also the type of the event.
 
@@ -95,7 +99,8 @@ Note that we pass in the event instance and also the type of the event.
 
 In order for the event listeners to receive the events, we must dispatch them.  E.g.
 
-```eventList.dispatch(dispatcher);```
+```eventList.dispatch(dispatcher);
+```
 
 For a full demonstration, see source/demo.d
 
