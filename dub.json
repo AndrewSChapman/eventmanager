@@ -5,6 +5,5 @@
 	],
 	"description": "This library implements a variant of the publish / subcribe pattern, using events, an event list and event dispatchers.",
 	"copyright": "Copyright © 2017, Andy Chapman",
-	"license": "BSL-1.0",
-	"version": "0.1.0"
+	"license": "BSL-1.0"
 }
