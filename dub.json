@@ -1,0 +1,9 @@
+{
+	"name": "eventmanager",
+	"authors": [
+		"Andy Chapman"
+	],
+	"description": "Implements an event manager and dispatcher",
+	"copyright": "Copyright © 2017, Andy Chapman",
+	"license": "Apache-2.0"
+}
