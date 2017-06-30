@@ -3,11 +3,7 @@ module eventmanager.demo;
 import std.exception;
 import std.stdio;
 
-import eventmanager.abstractevent;
-import eventmanager.eventlistenerinterface;
-import eventmanager.eventinterface;
-import eventmanager.eventdispatcher;
-import eventmanager.eventlist;
+import eventmanager.all;
 
 struct AppStartedMeta
 {

@@ -1,6 +1,40 @@
 # EventManager
 
-This library implements a variant of the pub/sub pattern, using events, an event list and event dispatchers.
+This library implements a variant of the publisher / subscriber pattern, using events, an event list and an event dispatcher.
+
+## Usage Overview
+
+Here's the basic pattern in use.  Your app may produce "events" (which can hold any metadata that you like), 
+and you can then define listeners that will handle those events.
+
+```
+// Create a few test events of different types
+auto eventAppStarted = new AppStartedEvent("My Test App");
+auto eventUserCreated = new UserCreatedEvent(1, "Jane", "Doe");
+
+// Setup an event dispatcher and attach listeners
+auto dispatcher = new EventDispatcher();
+dispatcher.attachListener(new Listener1());
+dispatcher.attachListener(new Listener2());
+
+// Setup an event list and append our test events.
+auto eventList = new EventList();
+eventList.append(eventAppStarted, typeid(AppStartedEvent));
+eventList.append(eventUserCreated, typeid(UserCreatedEvent));
+
+// Dispatch our events - the listeners should receive only the events they
+// are interested in.
+eventList.dispatch(dispatcher);
+
+// At this point our event Listeners will receive the events they are subsribed to.
+```
+
+## Why
+
+The benefit of setting up events and event listeners is that you separate commands and actions from the business logic associated with them.
+This makes your code modular and more atomic in nature.  It also sets you up to implement [Event Sourcing](https://martinfowler.com/eaaDev/EventSourcing.html)
+
+Somre more explanation about Events, Event Listeners and setting up the appropriate classes / structs follows.
 
 ## Events
 
