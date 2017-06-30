@@ -26,20 +26,19 @@ eventList.append(eventUserCreated, typeid(UserCreatedEvent));
 // are interested in.
 eventList.dispatch(dispatcher);
 
-// At this point our event Listeners will receive the events they are subsribed to.
+// At this point our event Listeners will receive the events they are subscribed to.
 ```
 
 ## Why
 
 The benefit of setting up events and event listeners is that you separate commands and actions from the business logic associated with them.
-This makes your code modular and more atomic in nature.  It also sets you up to implement [Event Sourcing](https://martinfowler.com/eaaDev/EventSourcing.html)
+This makes your code modular and more atomic in nature.  It also sets you up to implement [Event Sourcing](https://martinfowler.com/eaaDev/EventSourcing.html).
 
-Somre more explanation about Events, Event Listeners and setting up the appropriate classes / structs follows.
+Read on for hilarity, and for elaboration on on Events, Event Listeners, dispatching events and setting up the appropriate classes / structs.
 
 ## Events
 
-Your app can raise events.  Events can store any metadata you like in structs.
-An event must extend AbstractEvent and have a metadata struct type defined.
+Your app can raise events.  Events are just classes that extend "AbstractEvent" and store metadata in a struct that you define.
 
 Here's an example of a metadata struct.  This struct can hold any number of properties of any type.  You could for example hold an entity or database tuple here.
 
@@ -110,7 +109,7 @@ class Listener2 : EventListenerInterface
 }
 ```
 
-Note that whilst you are handling events, you can also create new events and pass those back to the dispatcher.
+Note that whilst you are busy handling events, you can also create new events and pass those back to the dispatcher.
 In this way, you can have events that create events that create events and so on.  There is no limit to the depth
 of event creation.  See source/demo.d for an example of a handler that creates new events.
 
