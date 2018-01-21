@@ -10,8 +10,8 @@ import eventmanager.eventlist;
 
 interface EventDispatcherInterface
 {
-    public void attachListener(EventListenerInterface listener);
-    public EventListInterface dispatch(EventInterface event, TypeInfo eventType);
+    public void attachListener(EventListenerInterface listener) @safe;
+    public EventListInterface dispatch(EventInterface event, TypeInfo eventType) @safe;
 }
 
 class EventDispatcher : EventDispatcherInterface
@@ -20,7 +20,7 @@ class EventDispatcher : EventDispatcherInterface
     // to a singly linked list of eventlistenerinterfaces.
     private SList!EventListenerInterface[TypeInfo] listenerMap;
     
-    public void attachListener(EventListenerInterface listener)
+    public void attachListener(EventListenerInterface listener) @safe
     {
         auto listenerType = typeid(listener);
         auto interestedEvents = listener.getInterestedEvents();
@@ -34,7 +34,7 @@ class EventDispatcher : EventDispatcherInterface
         }
     }
 
-    public EventListInterface dispatch(EventInterface event, TypeInfo eventType)
+    public EventListInterface dispatch(EventInterface event, TypeInfo eventType) @safe
     {
         auto eventList = new EventList();
         
@@ -55,7 +55,7 @@ class EventDispatcher : EventDispatcherInterface
         return eventList;
     }    
 
-    private bool noListenersInterestedInThisEvent(TypeInfo eventType) {
+    private bool noListenersInterestedInThisEvent(TypeInfo eventType) @safe {
         return !(eventType in this.listenerMap);
     }
 }

@@ -16,21 +16,22 @@ struct EventContainer
 }
 
 interface EventListInterface {
-    public void append(EventInterface event, TypeInfo eventType);
-    public void dispatch(EventDispatcherInterface dispatcher);
-    public DList!EventContainer getEventList();
-    public ulong size();
+    public void append(EventInterface event, TypeInfo eventType) @safe;
+    public void dispatch(EventDispatcherInterface dispatcher) @safe;
+    public DList!EventContainer getEventList() @safe;
+    public ulong size() @safe;
 }
 
 class EventList : EventListInterface
 {
     private DList!EventContainer eventList;
 
-    this() {
+    this() @safe {
         this.eventList = DList!EventContainer();
     }  
 
-    public void append(EventInterface event, TypeInfo eventType) {
+    public void append(EventInterface event, TypeInfo eventType) @safe
+    {
         EventContainer container;
         container.eventType = eventType;
         container.event = event;
@@ -39,7 +40,7 @@ class EventList : EventListInterface
     }
 
     // Allow appending from one event list into another.
-    public void append(EventListInterface newEventList) {
+    public void append(EventListInterface newEventList) @safe {
         foreach (container; newEventList.getEventList()) {
             this.append(container.event, container.eventType);
         }
@@ -51,8 +52,8 @@ class EventList : EventListInterface
     looping until all events have been processed and no new events
     have been created.
     */
-    public void dispatch(EventDispatcherInterface dispatcher) {
-        
+    public void dispatch(EventDispatcherInterface dispatcher) @safe
+    {
         auto eventList = this.eventList;
 
         while (true) {
@@ -73,12 +74,12 @@ class EventList : EventListInterface
         }
     }
 
-    public DList!EventContainer getEventList()
+    public DList!EventContainer getEventList() @safe
     {
         return this.eventList;
     } 
 
-    public ulong size()
+    public ulong size() @safe
     {
         ulong count = 0;
 

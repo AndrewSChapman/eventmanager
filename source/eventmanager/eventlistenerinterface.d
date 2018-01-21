@@ -5,6 +5,6 @@ import eventmanager.eventlist;
 
 interface EventListenerInterface
 {
-    public TypeInfo[] getInterestedEvents();
-    public EventListInterface handleEvent(EventInterface event, TypeInfo eventType);
+    public TypeInfo[] getInterestedEvents() @safe;
+    public EventListInterface handleEvent(EventInterface event, TypeInfo eventType) @safe;
 }

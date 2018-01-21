@@ -72,7 +72,7 @@ class Listener1 : EventListenerInterface
         ];
     }
 
-    public EventListInterface handleEvent(EventInterface event, TypeInfo eventType) {
+    public EventListInterface handleEvent(EventInterface event, TypeInfo eventType) @trusted {
         writeln("Listener1 received event: ", event);
 
         auto eventList = new EventList();
@@ -97,7 +97,7 @@ class Listener2 : EventListenerInterface
         ];
     }
 
-    public EventListInterface handleEvent(EventInterface event, TypeInfo eventType) {
+    public EventListInterface handleEvent(EventInterface event, TypeInfo eventType) @trusted {
         writeln("Listener2 received event: ", event);
 
         auto eventList = new EventList();

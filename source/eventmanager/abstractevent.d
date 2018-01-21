@@ -3,6 +3,7 @@ module eventmanager.abstractevent;
 import std.datetime;
 import std.variant;
 import std.exception;
+import std.stdio;
 
 import eventmanager.eventinterface;
 
@@ -19,13 +20,13 @@ abstract class AbstractEvent(T) : EventInterface
     protected EventLifecycle lifecycle;
     protected T metadata;
 
-    this(T metadata) {
+    this(T metadata) @safe {
         //this.timestamp = Clock.currTime().toUnixTime();
         this.lifecycle.eventCreated = Clock.currStdTime();
         this.metadata = metadata;
     }
 
-    public EventLifecycle getLifecycle()
+    public EventLifecycle getLifecycle() @safe
     {
         return this.lifecycle;
     }
@@ -35,11 +36,12 @@ abstract class AbstractEvent(T) : EventInterface
         return cast(Variant)this.metadata;
     }
 
-    public void setEventReceived() {
+    public void setEventReceived() @safe
+    {
         this.lifecycle.eventReceived = Clock.currStdTime();
     }
 
-    public void setEventDispatched() in {
+    public void setEventDispatched() @safe in {
         enforce(this.lifecycle.eventReceived > 0, "Event must be flagged as being received BEFORE being dispatched");
     } body {
         this.lifecycle.eventDispatched = Clock.currStdTime();
@@ -65,7 +67,7 @@ unittest {
     EventTestMetadata metadata;
     metadata.id = 1;
     metadata.name = "Jane Doe";
-
+    
     // Test instantiating an event
     auto testEvent = new TestEvent(metadata);
 
